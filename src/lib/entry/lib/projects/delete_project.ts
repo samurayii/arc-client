@@ -2,9 +2,9 @@ import { Command } from "commander";
 import { IAppConfig } from "../../interfaces";
 import * as chalk from "chalk";
 
-export function exist (options: Command, config: IAppConfig): void {
+export function delete_project (options: Command, config: IAppConfig): void {
 
-    config.action = "exist";
+    config.action = "delete";
 
     if (process.env["ARC_CLIENT_LOGS"] !== undefined) {
         options.logs = process.env["ARC_CLIENT_LOGS"];

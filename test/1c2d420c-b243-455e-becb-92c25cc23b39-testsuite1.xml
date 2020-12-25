@@ -1,0 +1,22 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1608293812038' stop='1608293812055'>
+    <name>auth</name>
+    <title>auth</title>
+    <test-cases>
+        <test-case start='1608293812038' status='failed' stop='1608293812054'>
+            <name>login</name>
+            <title>login</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments/>
+            <failure>
+                <message>expected 404 to equal 200</message>
+                <stack-trace>AssertionError: expected 404 to equal 20
+                    at Context.&lt;anonymous> (tests\login.spec.js:27:11111)
+                    at processTicksAndRejections (internal/process/task_queues.js:94:5)</stack-trace>
+            </failure>
+            <description type='text'>Авторизация зарегистрированного пользователя</description>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

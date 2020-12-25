@@ -2,6 +2,7 @@ import { program } from "commander";
 import * as finder from "find-package-json";
 import { IAppConfig } from "./interfaces";
 import { projects } from "./lib/projects";
+import { reports } from "./lib/reports";
 
 export * from "./interfaces";
  
@@ -18,7 +19,7 @@ program.usage("[commands]");
 
 
 
-
+reports(program, config);
 projects(program, config);
 
 program.parse(process.argv);
