@@ -5,29 +5,27 @@ import * as chalk from "chalk";
 export function list (options: Command, config: IAppConfig): void {
 
     config.action = "list";
-    config.keys.url = options.url;
-    config.logs = options.logs;
 
     if (process.env["ARC_CLIENT_LOGS"] !== undefined) {
-        config.logs = process.env["ARC_CLIENT_LOGS"];
+        options.logs = process.env["ARC_CLIENT_LOGS"];
     }
 
     if (process.env["ARC_CLIENT_URL"] !== undefined) {
-        config.keys.url = process.env["ARC_CLIENT_URL"];
+        options.keys.url = process.env["ARC_CLIENT_URL"];
     }
 
     if (process.env["ARC_CLIENT_PROJECT_NAME"] !== undefined) {
-        config.keys.project_name = process.env["ARC_CLIENT_PROJECT_NAME"];
+        options.keys.project_name = process.env["ARC_CLIENT_PROJECT_NAME"];
     }
 
     let error_flag = false;
 
-    if (config.keys.url === undefined) {
+    if (options.url === undefined) {
         console.error(`${chalk.red("[ERROR]")} Not set required key: ${chalk.white.bold.bgGray(" --url, -u ")}`);
         error_flag = true;
     }
 
-    if (config.keys.project_name === undefined) {
+    if (options.project_name === undefined) {
         console.error(`${chalk.red("[ERROR]")} Not set required key: ${chalk.white.bold.bgGray(" --project_name, -pn ")}`);
         error_flag = true;
     }
@@ -36,8 +34,8 @@ export function list (options: Command, config: IAppConfig): void {
         process.exit(1);
     }
 
-    config.keys.url = config.keys.url.trim().replace(/\/$/, "");
-    config.keys.project_name = config.keys.project_name.trim();
-    config.logs = config.logs.trim().toLowerCase();
+    config.keys.url = options.url.trim().replace(/\/$/, "");
+    config.keys.project_name = options.project_name.trim();
+    config.logs = options.logs.trim().toLowerCase();
 
 }

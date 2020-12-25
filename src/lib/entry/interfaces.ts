@@ -10,5 +10,8 @@ export interface IAppConfig {
         namespace?: string
         options_path?: string
         workload_name?: string
+        report_path?: string
+        folder_path?: string
+        output?: string
     }
 }
