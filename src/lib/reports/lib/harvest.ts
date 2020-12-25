@@ -49,23 +49,49 @@ export async function harvest (config: IAppConfig, logger: ILogger): Promise<voi
             logger.error("Server is not available");
             process.exit(1);
         }
+    
+        const project_url = `${config.keys.url}/v1/project/${config.keys.project_name}/exist`;
 
-        const reports_url = `${config.keys.url}/v1/project/${config.keys.project_name}/reports`;
+        logger.log(`Request: ${chalk.yellow("GET")} ${chalk.grey(project_url.replace(/\:\/\/.*\:.*@/i, "://xxxxx:xxxxx@"))}`, "dev");
 
-        logger.log(`Request: ${chalk.yellow("GET")} ${chalk.grey(reports_url.replace(/\:\/\/.*\:.*@/i, "://xxxxx:xxxxx@"))}`, "dev");
+        const project_response = await fetch(project_url);
 
-        const reports_response = await fetch(reports_url);
-
-        if (reports_response.status !== 200) {
-            logger.error(`Server return code ${chalk.gray(reports_response.status)}`);
+        if (project_response.status !== 200) {
+            logger.error(`Server return code ${chalk.gray(project_response.status)}`);
             process.exit(1);
         }
     
-        const reports_body = await reports_response.json();
+        const project_body = await project_response.json();
 
-        if (reports_body.status !== "success") {
-            logger.error(`Operation status ${chalk.red(reports_body.status)}. ${reports_body.message}`);
+        if (project_body.status !== "success") {
+            logger.error(`Operation status ${chalk.red(project_body.status)}. ${project_body.message}`);
             process.exit(1);
+        }
+
+        let project_reports_list = [];
+
+        if (project_body.data === true) {
+            
+            const reports_url = `${config.keys.url}/v1/project/${config.keys.project_name}/reports`;
+
+            logger.log(`Request: ${chalk.yellow("GET")} ${chalk.grey(reports_url.replace(/\:\/\/.*\:.*@/i, "://xxxxx:xxxxx@"))}`, "dev");
+    
+            const reports_response = await fetch(reports_url);
+    
+            if (reports_response.status !== 200) {
+                logger.error(`Server return code ${chalk.gray(reports_response.status)}`);
+                process.exit(1);
+            }
+        
+            const reports_body = await reports_response.json();
+    
+            if (reports_body.status !== "success") {
+                logger.error(`Operation status ${chalk.red(reports_body.status)}. ${reports_body.message}`);
+                process.exit(1);
+            }
+
+            project_reports_list = reports_body.data;
+
         }
 
         const files = getXmlFilesList(full_folder_path);
@@ -77,7 +103,7 @@ export async function harvest (config: IAppConfig, logger: ILogger): Promise<voi
             const body = fs.readFileSync(full_file_path).toString();
             const report_name = path.basename(full_file_path);
 
-            if (reports_body.data.includes(report_name) === true) {
+            if (project_reports_list.includes(report_name) === true) {
                 logger.log(`Report ${chalk.gray(report_name)} already exist on server`, "dev");
                 continue;
             }
