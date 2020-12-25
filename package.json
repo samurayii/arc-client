@@ -72,10 +72,6 @@
             "rewrite": true,
             "copy": [
                 {
-                    "from": "./src/lib/schemes",
-                    "to": "./dist/lib/schemes"
-                },
-                {
                     "from": "./README.md",
                     "to": "./dist/README.md"
                 }
