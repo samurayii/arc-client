@@ -49,29 +49,6 @@ export async function harvest (config: IAppConfig, logger: ILogger): Promise<voi
             logger.error("Server is not available");
             process.exit(1);
         }
-    
-        const project_url = `${config.keys.url}/v1/project/${config.keys.project_name}/exist`;
-
-        logger.log(`Request: ${chalk.yellow("GET")} ${chalk.grey(project_url.replace(/\:\/\/.*\:.*@/i, "://xxxxx:xxxxx@"))}`, "dev");
-
-        const project_response = await fetch(project_url);
-
-        if (project_response.status !== 200) {
-            logger.error(`Server return code ${chalk.gray(project_response.status)}`);
-            process.exit(1);
-        }
-    
-        const project_body = await project_response.json();
-
-        if (project_body.status !== "success") {
-            logger.error(`Operation status ${chalk.red(project_body.status)}. ${project_body.message}`);
-            process.exit(1);
-        }
-
-        if (project_body.data === false) {
-            logger.error(`Project ${chalk.red(config.keys.project_name)} not found`);
-            process.exit(1);
-        }
 
         const reports_url = `${config.keys.url}/v1/project/${config.keys.project_name}/reports`;
 
