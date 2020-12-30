@@ -5,7 +5,7 @@ import * as chalk from "chalk";
 import * as fs from "fs";
 import * as path from "path"; 
 
-const getXmlFilesList = (folder: string, files_list: string[]  = []) => {
+const getFilesList = (folder: string, files_list: string[]  = []) => {
 
     const files = fs.readdirSync(folder);
 
@@ -15,11 +15,7 @@ const getXmlFilesList = (folder: string, files_list: string[]  = []) => {
         const stat = fs.statSync(full_file_path);
 
         if (stat.isFile()) {
-            if (/\.xml$/.test(file_path)) {
-                files_list.push(full_file_path);
-            }
-        } else {
-            getXmlFilesList(full_file_path, files_list);
+            files_list.push(full_file_path);
         }
 
     });
@@ -94,7 +90,7 @@ export async function harvest (config: IAppConfig, logger: ILogger): Promise<voi
 
         }
 
-        const files = getXmlFilesList(full_folder_path);
+        const files = getFilesList(full_folder_path);
 
         logger.log("Harvesting ...");
 
