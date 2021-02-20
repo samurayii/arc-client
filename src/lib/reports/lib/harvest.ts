@@ -96,7 +96,7 @@ export async function harvest (config: IAppConfig, logger: ILogger): Promise<voi
 
         for (const full_file_path of files) {
 
-            const body = fs.readFileSync(full_file_path).toString();
+            const body = fs.readFileSync(full_file_path).toString("base64");
             const report_name = path.basename(full_file_path);
 
             if (project_reports_list.includes(report_name) === true) {

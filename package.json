@@ -1,6 +1,6 @@
 {
     "name": "arc-client",
-    "version": "0.1.5",
+    "version": "0.1.7",
     "description": "Client for allure reports center",
     "main": "index.js",
     "directories": {

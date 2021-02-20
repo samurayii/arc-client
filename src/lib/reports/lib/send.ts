@@ -16,7 +16,7 @@ export async function send (config: IAppConfig, logger: ILogger): Promise<void> 
             process.exit(1);
         }
 
-        const body = fs.readFileSync(full_report_path).toString();
+        const body = fs.readFileSync(full_report_path);
         const report_name = path.basename(full_report_path);
 
         const ping_url = `${config.keys.url}/_ping`;
