@@ -55,7 +55,7 @@
         "commander": "^6.2.1",
         "find-package-json": "^1.2.0",
         "logger-flx": "^0.1.5",
-        "node-fetch": "^2.6.1"
+        "node-fetch": "^3.1.1"
     },
     "remover": {
         "target": "./package.json",
